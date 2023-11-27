@@ -1,4 +1,8 @@
 #pragma once
+
+#include<filesystem>
+namespace fs = std::filesystem;
+
 #include "rpch.h"
 #include "window/WindowsWindow.h"
 
@@ -15,5 +19,7 @@ namespace Rayer {
 	private:
 		
 		std::unique_ptr<Rayer::WindowsWindow> mWindow;
+
+		std::string parentDir;
 	};
 }

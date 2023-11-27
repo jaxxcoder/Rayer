@@ -1,6 +1,7 @@
 #pragma once
 #include "rpch.h"
 #include "window.h"
+#include <STB/stb_image.h>
 
 namespace Rayer {
 	
@@ -58,12 +59,33 @@ namespace Rayer {
 			glfwMaximizeWindow(window);
 		}
 
+		virtual void setIcon(const char* iconPath) override {
+
+			
+			icon_data = stbi_load(iconPath, &iWidth, &iHeight, &iChannels, 0);
+
+			if (icon_data) {
+
+				icon.width = iWidth;
+				icon.height = iHeight;
+				icon.pixels = icon_data;
+
+				// Set the window icon
+				glfwSetWindowIcon(window, 1, &icon);
+			}
+		}
+
 
 	private:
 		int Width;
 		int Height;
 		const char* Title;
 		GLFWwindow* window;
+
+		//************Window Icon properties************
+		GLFWimage icon;
+		unsigned char* icon_data;
+		int iWidth, iHeight, iChannels;
 
 	};
 }

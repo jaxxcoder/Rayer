@@ -17,6 +17,7 @@ namespace Rayer {
 		virtual void poolEvents() const = 0;
 		virtual void renderWindow() const = 0;
 		virtual void maximizeWindow() const = 0;
+		virtual void setIcon(const char* iconPath) = 0;
 	};
 
 }
