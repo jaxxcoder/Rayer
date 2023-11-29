@@ -1,7 +1,15 @@
 #pragma once
+
+#include<filesystem>
+namespace fs = std::filesystem;
+
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_glfw.h"
+#include "imgui/imgui_impl_opengl3.h"
 #include "rpch.h"
 #include "window.h"
 #include <STB/stb_image.h>
+#include "gui/WindowsGUI.h"
 
 namespace Rayer {
 	
@@ -38,10 +46,6 @@ namespace Rayer {
 			return Height;
 		}
 
-		virtual void setContext() const override {
-
-			glfwMakeContextCurrent(window);
-		}
 		
 		virtual void poolEvents() const override {
 
@@ -49,6 +53,8 @@ namespace Rayer {
 		}
 
 		virtual void renderWindow() const override {
+
+			
 
 			poolEvents();
 			swapBuffers();
@@ -59,21 +65,14 @@ namespace Rayer {
 			glfwMaximizeWindow(window);
 		}
 
-		virtual void setIcon(const char* iconPath) override {
+		void renderGui() {
 
-			
-			icon_data = stbi_load(iconPath, &iWidth, &iHeight, &iChannels, 0);
-
-			if (icon_data) {
-
-				icon.width = iWidth;
-				icon.height = iHeight;
-				icon.pixels = icon_data;
-
-				// Set the window icon
-				glfwSetWindowIcon(window, 1, &icon);
-			}
+			mGui->renderGUI();
 		}
+
+		virtual void setIcon(const char* iconPath) override;
+		virtual void clearFrame() override;
+		virtual void cleanup() override;
 
 
 	private:
@@ -86,6 +85,13 @@ namespace Rayer {
 		GLFWimage icon;
 		unsigned char* icon_data;
 		int iWidth, iHeight, iChannels;
+
+		//**************For gui***************
+		std::unique_ptr<Rayer::WindowsGUI> mGui = nullptr;
+
+		std::string parentDir;
+		
+
 
 	};
 }

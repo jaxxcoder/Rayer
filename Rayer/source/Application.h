@@ -5,6 +5,7 @@ namespace fs = std::filesystem;
 
 #include "rpch.h"
 #include "window/WindowsWindow.h"
+#include "gui/WindowsGUI.h"
 
 namespace Rayer {
 
@@ -19,6 +20,7 @@ namespace Rayer {
 	private:
 		
 		std::unique_ptr<Rayer::WindowsWindow> mWindow;
+		
 
 		std::string parentDir;
 	};

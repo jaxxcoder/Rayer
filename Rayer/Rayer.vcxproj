@@ -144,12 +144,31 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="source\Application.h" />
+    <ClInclude Include="source\gui\gui.h" />
+    <ClInclude Include="source\gui\WindowsGUI.h" />
+    <ClInclude Include="source\imgui\imconfig.h" />
+    <ClInclude Include="source\imgui\imgui.h" />
+    <ClInclude Include="source\imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="source\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="source\imgui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="source\imgui\imgui_internal.h" />
+    <ClInclude Include="source\imgui\imstb_rectpack.h" />
+    <ClInclude Include="source\imgui\imstb_textedit.h" />
+    <ClInclude Include="source\imgui\imstb_truetype.h" />
     <ClInclude Include="source\rpch.h" />
     <ClInclude Include="source\window\window.h" />
     <ClInclude Include="source\window\WindowsWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Application.cpp" />
+    <ClCompile Include="source\gui\WindowsGUI.cpp" />
+    <ClCompile Include="source\imgui\imgui.cpp" />
+    <ClCompile Include="source\imgui\imgui_demo.cpp" />
+    <ClCompile Include="source\imgui\imgui_draw.cpp" />
+    <ClCompile Include="source\imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="source\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="source\imgui\imgui_tables.cpp" />
+    <ClCompile Include="source\imgui\imgui_widgets.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\stb\stb_image.cpp" />
     <ClCompile Include="source\window\WindowsWindow.cpp" />
