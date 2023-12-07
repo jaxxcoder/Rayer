@@ -14,11 +14,12 @@ namespace Rayer {
 		virtual int getWindowWidth() const = 0;
 		virtual int getWindowHeight() const = 0;
 		virtual void poolEvents() const = 0;
-		virtual void renderWindow() const = 0;
+		virtual void renderWindow()  = 0;
 		virtual void maximizeWindow() const = 0;
 		virtual void setIcon(const char* iconPath) = 0;
 		virtual void clearFrame() = 0;
 		virtual void cleanup() = 0;
+		virtual void storeBufferSize() = 0;
 	};
 
 }

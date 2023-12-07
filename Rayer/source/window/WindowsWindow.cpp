@@ -27,13 +27,38 @@ namespace Rayer {
 			std::terminate();
 		}
 
+		
 		// Make the context current
 		glfwMakeContextCurrent(window);
+		
+		
 
 		mGui = std::make_unique<Rayer::WindowsGUI>();
 		mGui->setupContext((void*)window);
 		mGui->setFont((parentDir + "/Resources/Font/Padauk-Font.ttf").c_str() , 20.0f);
+
+		//Initializing glew
+		glewExperimental = GL_TRUE;
+		if (glewInit() != GLEW_OK) {
+
+			std::cerr << "Failed to initialize glew" << std::endl;
+			glfwDestroyWindow(window);
+			glfwTerminate();
+			std::terminate();
+		}
+
+		storeBufferSize();
 		
+		glViewport(0, 0, bufferWidth, bufferHeight);
+
+		renderer = std::make_unique<OpenGL_Renderer>();
+		shader = std::make_unique<Shader>();
+
+		mViewportPos = mGui->getViewportPos();
+		mViewportSize = mGui->getViewportSize();
+		
+		glViewport(0, 0, mViewportSize.x, mViewportSize.y);
+
 	}
 
 	void* WindowsWindow::init(int width, int height, const char* title) {
@@ -56,6 +81,32 @@ namespace Rayer {
 			glfwSetWindowIcon(window, 1, &icon);
 		}
 	}
+	
+	void WindowsWindow::renderWindow()  {
+
+		glViewport(0, 0, mViewportSize.x, mViewportSize.y);
+		renderer->bindFrameBuffer();
+		clearFrame();
+		poolEvents();
+
+		mViewportPos = mGui->getViewportPos();
+		mViewportSize = mGui->getViewportSize();
+
+		mGui->guiNewFrame();
+
+
+		renderer->render(shader->getInstance() , RenderType::DrawArrays);
+		renderer->unbindFrameBuffer();
+
+		mGui->getGuiPanels(renderer->getRenderTextureID());
+
+		
+
+		mGui->renderGUI();
+
+		swapBuffers();
+
+	}
 
 	void WindowsWindow::cleanup() {
 
@@ -65,8 +116,20 @@ namespace Rayer {
 		glfwTerminate();
 	}
 
-	void WindowsWindow::clearFrame() {
-		glClear(GL_COLOR_BUFFER_BIT);
+	void WindowsWindow::storeBufferSize() {
+
+		glfwGetFramebufferSize(window, &bufferWidth, &bufferHeight);
+
 	}
+
+	void WindowsWindow::clearFrame() {
+		
+		glClearColor(1.0f, 0.0f, 1.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+		
+	}
+
+	
+	
 
 }

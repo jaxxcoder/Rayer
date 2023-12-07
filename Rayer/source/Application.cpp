@@ -14,18 +14,14 @@ namespace Rayer {
 		mWindow->setIcon((parentDir + "/Resources/Logo/Rayer-logo.png").c_str());
 		mWindow->maximizeWindow();
 		
-
+		
 
 		while (!mWindow->shouldClose()) {
-
-			mWindow->clearFrame();
-
-			mWindow->renderGui();
 
 			mWindow->renderWindow();
 		}
 
-
+		mWindow->cleanup();
 
 		
 	}

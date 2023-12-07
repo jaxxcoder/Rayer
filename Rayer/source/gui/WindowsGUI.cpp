@@ -34,28 +34,36 @@ namespace Rayer {
         }
 
         io->ConfigFlags |= ImGuiConfigFlags_DockingEnable;  // Enable Docking
+
+        style = &ImGui::GetStyle();
+
+        setStyle(*io, *style);
+
     }
 
-    void WindowsGUI::renderGUI() {
-
-       
-        // Start the Dear ImGui frame
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
-        
-        // Create a dockspace
-        ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
+    void WindowsGUI::getGuiPanels(GLuint renderTextureID) {
 
         //Inspector window
         ImGui::Begin("Inspector");
+
         ImGui::Text("This is the inspector");
+
+
         ImGui::End();
 
         //Viewport window
         ImGui::Begin("Viewport");
+
+        viewportSize = ImGui::GetContentRegionAvail();
+        ImGui::Image((void*)(intptr_t)renderTextureID, viewportSize, ImVec2(0, 1), ImVec2(1, 0));
+
         ImGui::End();
 
+    }
+
+    void WindowsGUI::renderGUI() {
+
+   
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     }
@@ -69,5 +77,39 @@ namespace Rayer {
         // If you want to set this font as the default, you can do so:
         io->FontDefault = customFont;
 
+    }
+
+    void WindowsGUI::guiNewFrame() {
+
+        // Start the Dear ImGui frame
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+        
+        // Create a dockspace
+        ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
+
+    }
+
+    void WindowsGUI::setStyle(ImGuiIO& io, ImGuiStyle& style) {
+
+        if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+
+            style.WindowRounding = 0.0f;
+            style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+
+        }
+
+    }
+
+
+    ImVec2 WindowsGUI::getViewportPos() {
+
+        return viewportPos;
+    }
+
+    ImVec2 WindowsGUI::getViewportSize() {
+
+        return viewportSize;
     }
 }
