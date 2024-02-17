@@ -18,6 +18,9 @@ namespace Rayer {
 		virtual void setFont(const char* fontPath , float fontSize) override;
 		virtual void setupContext(void* gWindow) override;
 		virtual void cleanup() override;
+
+		virtual void MenuBar() override;
+
 		void guiNewFrame();
 		void setStyle(ImGuiIO& io , ImGuiStyle& style);
 		ImVec2 getViewportSize();
@@ -29,6 +32,7 @@ namespace Rayer {
 		ImGuiStyle* style = nullptr;
 		ImVec2 viewportSize;
 		ImVec2 viewportPos;
+		bool showPopup = false;
 	};
 
 }

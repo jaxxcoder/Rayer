@@ -39,14 +39,96 @@ namespace Rayer {
 
         setStyle(*io, *style);
 
+
+        //Setting up imgui window style
+
+        //Start
+        style->Colors[ImGuiCol_WindowBg] = ImVec4{ 0.1f, 0.1f, 0.1f, 1.0f };
+        
+        style->Colors[ImGuiCol_Header] = ImVec4{ 0.2f, 0.2f, 0.2f, 1.0f };
+        style->Colors[ImGuiCol_HeaderHovered] = ImVec4{ 0.3f, 0.3f, 0.3f, 1.0f };
+        style->Colors[ImGuiCol_HeaderActive] = ImVec4{ 0.15f, 0.15f, 0.15f, 1.0f };
+        
+        style->Colors[ImGuiCol_Button] = ImVec4{ 0.2f, 0.2f, 0.2f, 1.0f };
+        style->Colors[ImGuiCol_ButtonHovered] = ImVec4{ 0.3f, 0.3f, 0.3f, 1.0f };
+        style->Colors[ImGuiCol_ButtonActive] = ImVec4{ 0.15f, 0.15f, 0.15f, 1.0f };
+        
+        style->Colors[ImGuiCol_FrameBg] = ImVec4{ 0.2f, 0.2f, 0.2f, 1.0f };
+        style->Colors[ImGuiCol_FrameBgHovered] = ImVec4{ 0.3f, 0.3f, 0.3f, 1.0f };
+        style->Colors[ImGuiCol_FrameBgActive] = ImVec4{ 0.15f, 0.15f, 0.15f, 1.0f };
+        
+        style->Colors[ImGuiCol_Tab] = ImVec4{ 0.15f, 0.15f, 0.15f, 1.0f };
+        style->Colors[ImGuiCol_TabHovered] = ImVec4{ 0.38f, 0.38f, 0.38f, 1.0f };
+        style->Colors[ImGuiCol_TabActive] = ImVec4{ 0.28f, 0.28f, 0.28f, 1.0f };
+        style->Colors[ImGuiCol_TabUnfocused] = ImVec4{ 0.15f, 0.15f, 0.15f, 1.0f };
+        style->Colors[ImGuiCol_TabUnfocusedActive] = ImVec4{ 0.2f, 0.2f, 0.2f, 1.0f };
+        
+        style->Colors[ImGuiCol_TitleBg] = ImVec4{ 0.15f, 0.15f, 0.15f, 1.0f };
+        style->Colors[ImGuiCol_TitleBgActive] = ImVec4{ 0.15f, 0.15f, 0.15f, 1.0f };
+        style->Colors[ImGuiCol_TitleBgCollapsed] = ImVec4{ 0.15f, 0.15f, 0.15f, 1.0f };
+
+        ImGuiStyle* style = &ImGui::GetStyle();
+        if (io->ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+        {
+            style->WindowRounding = 0.0f;
+            style->Colors[ImGuiCol_WindowBg].w = 1.0f;
+        }
+
+        //End
+
+    }
+
+    void WindowsGUI::MenuBar() {
+
+
+        if (ImGui::BeginMainMenuBar()) {
+            if (ImGui::BeginMenu("File")) {
+                if (ImGui::MenuItem("Create")) {
+                }
+                if (ImGui::MenuItem("Open", "Ctrl+O")) {
+                }
+                if (ImGui::MenuItem("Save", "Ctrl+S")) {
+                }
+                if (ImGui::MenuItem("Save as..")) {
+                }
+                ImGui::EndMenu();
+            }
+
+            if (ImGui::BeginMenu("Settings")) {
+                if (ImGui::MenuItem("Create")) {
+                }
+                if (ImGui::MenuItem("Prefrences", "Ctrl+O")) {
+                }
+                if (ImGui::MenuItem("Project Settings", "Ctrl+Q")) {
+                }
+                
+                ImGui::EndMenu();
+            }
+
+            if (ImGui::BeginMenu("Help")) {
+                if (ImGui::MenuItem("About Rayer")) {
+
+                    
+                }
+                
+                ImGui::EndMenu();
+            }
+
+            ImGui::EndMainMenuBar();
+        }
+
     }
 
     void WindowsGUI::getGuiPanels(GLuint renderTextureID) {
 
+        
+
+        MenuBar();
+
         //Inspector window
         ImGui::Begin("Inspector");
 
-        ImGui::Text("This is the inspector");
+        
 
 
         ImGui::End();
@@ -56,6 +138,21 @@ namespace Rayer {
 
         viewportSize = ImGui::GetContentRegionAvail();
         ImGui::Image((void*)(intptr_t)renderTextureID, viewportSize, ImVec2(0, 1), ImVec2(1, 0));
+
+        ImGui::End();
+
+        //Content Browser window 
+        ImGui::Begin("Content Browser");
+
+        
+
+        ImGui::End();
+
+
+        //Properties window 
+        ImGui::Begin("Properties");
+
+       
 
         ImGui::End();
 

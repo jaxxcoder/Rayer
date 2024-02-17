@@ -12,6 +12,8 @@ namespace Rayer {
 		virtual void setFont(const char*,float) = 0;
 		virtual void setupContext(void*) = 0;
 		virtual void cleanup() = 0;
+
+		virtual void MenuBar() = 0;
 	};
 
 }
