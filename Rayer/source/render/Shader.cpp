@@ -1,11 +1,18 @@
 #include "Shader.h"
 
+
 namespace Rayer {
 
 
 	Shader::Shader() {
 
 		shaderInstance = this;
+
+		vertexShaderCode = _fileSystem.ReadFileToString(_rootDir + "/Shader/vertex.glsl");
+		fragmentShaderCode = _fileSystem.ReadFileToString(_rootDir + "/Shader/fragment.glsl");
+
+		vertexShaderSource = vertexShaderCode.c_str();
+		fragmentShaderSource = fragmentShaderCode.c_str();
 
 		createShader(GL_VERTEX_SHADER);
 		createShader(GL_FRAGMENT_SHADER);
@@ -21,25 +28,34 @@ namespace Rayer {
 		shaderCleanup();
 
 		validateProgram();
+
+		
+
+		
+		
+
 	}
 
 	void Shader::createShader(GLenum shaderType) {
 
 		ShaderCode shader_source;
+		
 
 		if (shaderType == GL_VERTEX_SHADER) {
 
 			vertexShaderID = glCreateShader(shaderType);
-			glShaderSource(vertexShaderID, 1, &shader_source.vertexShaderCode, nullptr);
+			glShaderSource(vertexShaderID, 1, &vertexShaderSource, nullptr);
 			glCompileShader(vertexShaderID);
 			compileErrors(vertexShaderID, "VERTEX");
+
+			
 
 		}
 
 		else if (shaderType == GL_FRAGMENT_SHADER) {
 
 			fragmentShaderID = glCreateShader(shaderType);
-			glShaderSource(fragmentShaderID, 1, &shader_source.fragmentShaderCode, nullptr);
+			glShaderSource(fragmentShaderID, 1, &fragmentShaderSource, nullptr);
 			glCompileShader(fragmentShaderID);
 			compileErrors(fragmentShaderID, "FRAGMENT");
 
@@ -48,6 +64,8 @@ namespace Rayer {
 	}
 
 	void Shader::createProgram() {
+
+		
 
 		programID = glCreateProgram();
 
@@ -132,14 +150,14 @@ namespace Rayer {
 	void Shader::Activate() {
 		
 		glUseProgram(programID);
-		std::cout << "Shader program with id: " << programID << " is activated" << std::endl;
+		//std::cout << "Shader program with id: " << programID << " is activated" << std::endl;
 
 	}
 
 	void Shader::Deactivate() {
 
 		glUseProgram(0);
-		std::cout << "Shader program with id: " << programID << " is deactivated" << std::endl;
+		//std::cout << "Shader program with id: " << programID << " is deactivated" << std::endl;
 	}
 
 	void Shader::shaderCleanup() {

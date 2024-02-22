@@ -15,39 +15,49 @@ namespace fs = std::filesystem;
 #include "render/OpenGL_Renderer.h"
 #include "render/Shader.h"
 
+#include "event/Event.h"
+#include "event/MouseEvent.h"
+#include "event/ApplicationEvent.h"
+#include "event/KeyEvent.h"
+
 namespace Rayer {
 	
 	class WindowsWindow : public Rayer::IWindow {
 
 	public:
 
-		WindowsWindow(int mWidth, int mHeight, const char* mTitle);
+		//Key repeat count conter
+		static int _pressedKeyRepeatCount;
 
-		virtual void* init(int width, int height, const char* title) override;
+		using EventCallbackFn = std::function<void(Event&)>;
+
+		WindowsWindow(int mWidth, int mHeight, const char* mTitle , bool mVSync);
+
+		virtual void init(int width, int height, const char* title) override;
 
 		virtual void* getNativeWindow() override {
 
-			return (void*)window;
+			return (void*)_windowData.window;
 		}
 
 		virtual bool shouldClose() const override {
 
-			return glfwWindowShouldClose(window);
+			return glfwWindowShouldClose(_windowData.window);
 		}
 
 		virtual void swapBuffers() const override {
 
-			glfwSwapBuffers(window);
+			glfwSwapBuffers(_windowData.window);
 		}
 
 		virtual int getWindowWidth() const override {
 
-			return Width;
+			return _windowData.Width;
 		}
 
 		virtual int getWindowHeight() const override {
 
-			return Height;
+			return _windowData.Height;
 		}
 
 		
@@ -59,7 +69,7 @@ namespace Rayer {
 
 		virtual void maximizeWindow() const override {
 
-			glfwMaximizeWindow(window);
+			glfwMaximizeWindow(_windowData.window);
 		}
 
 		void newFrameGUI() {
@@ -79,13 +89,30 @@ namespace Rayer {
 			return renderer.get();
 		}
 
+		void SetEventCallback(const EventCallbackFn& callback);
+
+		bool IsRunnning();
+
+		void SetWindowRunningState(bool running);
+	
 
 	private:
-		int Width;
-		int Height;
-		const char* Title;
-		GLFWwindow* window;
 
+		//Window data section
+		struct WindowData{
+			int Width;
+			int Height;
+			bool VSync;
+			const char* Title;
+			GLFWwindow* window;
+			EventCallbackFn callback;
+
+		};
+		
+		WindowData _windowData;
+
+		//Window running state variable
+		bool m_Running = true;
 		
 
 		//************Window Icon properties************

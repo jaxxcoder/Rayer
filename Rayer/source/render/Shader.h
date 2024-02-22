@@ -1,5 +1,6 @@
 #pragma once
 #include "rpch.h"
+#include "filesystem/FileSystem.h"
 
 namespace Rayer {
 
@@ -40,9 +41,22 @@ namespace Rayer {
 		void Deactivate();
 		Shader* getInstance();
 
+	protected:
+			
+		std::string vertexShaderCode;
+		std::string fragmentShaderCode;
+
+		const char* vertexShaderSource;
+		const char* fragmentShaderSource;
+		
+
 	private:
 
 		Shader* shaderInstance;
+
+		RayerFileSystem& _fileSystem = RayerFileSystem::getInstance();
+
+		std::string _rootDir = RayerFileSystem::getInstance().GetSolutionDirectory();
 	};
 
 }

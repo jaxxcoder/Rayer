@@ -8,7 +8,7 @@ namespace Rayer {
 	public:
 
 		virtual void* getNativeWindow() = 0;
-		virtual void* init(int width, int height, const char* title) = 0;
+		virtual void init(int width, int height, const char* title) = 0;
 		virtual bool shouldClose() const  = 0;
 		virtual void swapBuffers() const = 0;
 		virtual int getWindowWidth() const = 0;

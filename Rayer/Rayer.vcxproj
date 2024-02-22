@@ -144,6 +144,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="source\Application.h" />
+    <ClInclude Include="source\Core.h" />
+    <ClInclude Include="source\event\ApplicationEvent.h" />
+    <ClInclude Include="source\event\Event.h" />
+    <ClInclude Include="source\event\KeyEvent.h" />
+    <ClInclude Include="source\event\MouseEvent.h" />
+    <ClInclude Include="source\filesystem\FileSystem.h" />
     <ClInclude Include="source\gui\gui.h" />
     <ClInclude Include="source\gui\WindowsGUI.h" />
     <ClInclude Include="source\imgui\imconfig.h" />
@@ -155,6 +161,8 @@
     <ClInclude Include="source\imgui\imstb_rectpack.h" />
     <ClInclude Include="source\imgui\imstb_textedit.h" />
     <ClInclude Include="source\imgui\imstb_truetype.h" />
+    <ClInclude Include="source\layer\Layer.h" />
+    <ClInclude Include="source\layer\LayerStack.h" />
     <ClInclude Include="source\render\frameBuffer.h" />
     <ClInclude Include="source\render\OpenGL_Renderer.h" />
     <ClInclude Include="source\render\Shader.h" />
@@ -167,6 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Application.cpp" />
+    <ClCompile Include="source\filesystem\FileSystem.cpp" />
     <ClCompile Include="source\gui\WindowsGUI.cpp" />
     <ClCompile Include="source\imgui\imgui.cpp" />
     <ClCompile Include="source\imgui\imgui_demo.cpp" />
@@ -175,7 +184,9 @@
     <ClCompile Include="source\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="source\imgui\imgui_tables.cpp" />
     <ClCompile Include="source\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\layer\Layer.cpp" />
+    <ClCompile Include="source\layer\LayerStack.cpp" />
+    <ClCompile Include="source\Sandbox.cpp" />
     <ClCompile Include="source\render\frameBuffer.cpp" />
     <ClCompile Include="source\render\OpenGL_Renderer.cpp" />
     <ClCompile Include="source\render\Shader.cpp" />
@@ -186,8 +197,7 @@
     <ClCompile Include="source\window\WindowsWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="source\shader\fragment.frag" />
-    <Text Include="source\shader\vertex.vert" />
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
